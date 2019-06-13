@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+build_path=${1}
+cache_path=${2}
+deps_path=${3}
+index=${4}
+
+echo "-----> Adding some YAY to your app."
+
+bin_path=${deps_path}/${index}/bin
+
+mkdir -p ${bin_path}
+
+cat > ${bin_path}/yay <<EOF
+#!/usr/bin/env bash
+
+echo "YAY!!!"
+EOF
+
+chmod +x ${bin_path}/yay
+
+mkdir -p ${build_path}/.profile.d
+echo "export PATH=${bin_path}:\$PATH" > ${build_path}/.profile.d/0000_yay-path.sh
